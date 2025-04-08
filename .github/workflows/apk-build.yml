@@ -18,7 +18,7 @@ jobs:
       uses: gradle/actions/setup-gradle@v3
       with:
         gradle-version: 7.6.3
-        arguments: assembleDebug --stacktrace
+        arguments: assembleDebug --stacktrace --info
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
