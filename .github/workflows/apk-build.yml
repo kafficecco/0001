@@ -14,6 +14,8 @@ jobs:
       uses: android-actions/setup-android@v2
     - name: Accept Android SDK Licenses
       run: yes | sdkmanager --licenses
+      - name: Accept Gradle Terms
+  run: echo "systemProp.org.gradle.jvmargs=-Xmx2g" > gradle.properties && ./gradlew --version
     - name: Install Gradle
       run: |
         wget https://services.gradle.org/distributions/gradle-7.6.3-bin.zip
