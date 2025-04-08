@@ -10,6 +10,11 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+    - name: Install Gradle
+      run: |
+        wget https://services.gradle.org/distributions/gradle-6.9-bin.zip
+        unzip gradle-6.9-bin.zip
+        export PATH=$PATH:$PWD/gradle-6.9/bin
     - name: Setup Gradle Wrapper
       run: |
         echo "org.gradle.jvmargs=-Xmx2g" > gradle.properties
