@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>0001 - Web Pool Minero</title>
+  <style>
+    .miner-container { font-family: Arial, sans-serif; background-color: #FFF; color: #000; border: 2px solid #000; padding: 20px; max-width: 650px; margin: 20px auto; }
+    .miner-select, .miner-input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #000; font-size: 16px; }
+    .miner-buttons { display: flex; gap: 10px; }
+    .miner-btn { flex: 1; padding: 10px; border: 1px solid #000; background-color: #FFF; color: #000; }
+    .miner-btn:disabled { background-color: #575757; opacity: 0.5; }
+    .miner-debug { margin-top: 15px; padding: 10px; border: 1px dashed #000; max-height: 150px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <div class="miner-container">
+    <select id="pool" class="miner-select">
+      <option value="stratum+tcp://prohashing.com:3332:DOGE:0.25:4">Prohashing - Dogecoin</option>
+      <option value="stratum+tcp://hub.miningpoolhub.com:20555:DOGE:0.25:0.9">MiningPoolHub - Dogecoin</option>
+    </select>
+    <input id="wallet-address" class="miner-input" value="DN2fYySf2G6uc4mWkNbfcGQDhEuaAB1nyS" placeholder="Billetera">
+    <input id="worker-name" class="miner-input" value="worker1" placeholder="Worker">
+    <input id="password" class="miner-input" value="x" placeholder="Contraseña">
+    <div class="miner-buttons">
+      <button id="start-mining" class="miner-btn">Minar</button>
+      <button id="stop-mining" class="miner-btn" disabled>Parar</button>
+    </div>
+    <div id="debug-log" class="miner-debug">Mensajes aquí...</div>
+  </div>
+  <script>
+    let miningActive = false;
+    function logMessage(message) {
+      document.getElementById('debug-log').innerHTML += `[${new Date().toLocaleTimeString()}] ${message}<br>`;
+      document.getElementById('debug-log').scrollTop = document.getElementById('debug-log').scrollHeight;
+    }
+    document.getElementById('start-mining').addEventListener('click', () => {
+      const pool = document.getElementById('pool').value;
+      const wallet = document.getElementById('wallet-address').value;
+      const worker = document.getElementById('worker-name').value;
+      const password = document.getElementById('password').value;
+      if (!miningActive && window.Android) {
+        window.Android.startMining(pool, wallet, worker, password);
+        miningActive = true;
+        document.getElementById('start-mining').disabled = true;
+        document.getElementById('stop-mining').disabled = false;
+      }
+    });
+    document.getElementById('stop-mining').addEventListener('click', () => {
+      if (miningActive && window.Android) {
+        window.Android.stopMining();
+        miningActive = false;
+        document.getElementById('start-mining').disabled = false;
+        document.getElementById('stop-mining').disabled = true;
+        logMessage('Minería detenida');
+      }
+    });
+  </script>
+</body>
+</html>
