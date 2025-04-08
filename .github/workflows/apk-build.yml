@@ -28,6 +28,15 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Set permissions for gradle-wrapper.jar
+      run: chmod 644 gradle/wrapper/gradle-wrapper.jar
+
+    - name: Check working directory
+      run: pwd
+
+    - name: Check Java version
+      run: java -version
+
     - name: Build with Gradle
       run: ./gradlew :app:assembleDebug --stacktrace --debug --scan
 
