@@ -1,7 +1,5 @@
 name: Build APK
-
 on: [push]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,11 +11,9 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Setup Gradle
-      run: |
-        gradle wrapper --gradle-version 6.9
-        chmod +x ./gradlew
-    - name: Verify Gradle Wrapper
-      run: ./gradlew --version
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: 6.9
     - name: Build with Gradle
       run: ./gradlew assembleDebug
     - name: Upload APK
