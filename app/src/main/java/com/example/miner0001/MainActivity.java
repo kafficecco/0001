@@ -1,3 +1,4 @@
+
 package com.example.miner0001;
 
 import android.os.Bundle;
