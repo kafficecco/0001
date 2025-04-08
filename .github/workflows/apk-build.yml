@@ -22,7 +22,7 @@ jobs:
     - name: Initialize Gradle Wrapper
       run: gradle wrapper --gradle-version 7.6.3
     - name: Accept Gradle Terms
-      run: echo "systemProp.org.gradle.jvmargs=-Xmx2g" > gradle.properties && ./gradlew --version
+      run: mkdir -p ~/.gradle && echo "org.gradle.terms-of-service.agree=yes" > ~/.gradle/gradle.properties && ./gradlew --version
     - name: Make Gradle Executable
       run: chmod +x ./gradlew
     - name: Build with Gradle
