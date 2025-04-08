@@ -24,7 +24,9 @@ jobs:
     - name: Make Gradle Executable
       run: chmod +x ./gradlew
     - name: Build with Gradle
-      run: ./gradlew assembleDebug --stacktrace --info --scan -Dorg.gradle.terms-of-service=agree
+      run: ./gradlew assembleDebug --stacktrace --info --scan
+      env:
+        GRADLE_OPTS: "-Dorg.gradle.terms-of-service=agree"
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
