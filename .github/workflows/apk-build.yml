@@ -1,12 +1,15 @@
 name: Build APK
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -19,23 +22,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '7.4.2'
+
     - name: Set up Android SDK
       uses: android-actions/setup-android@v2
 
-    - name: Check working directory
-      run: pwd
-
-    - name: List files in gradle/wrapper
-      run: ls -la gradle/wrapper || echo "Directory not found"
-
-    - name: Set permissions for gradlew
-      run: chmod +x gradlew
-
-    - name: Set permissions for gradle-wrapper.jar
-      run: if [ -f gradle/wrapper/gradle-wrapper.jar ]; then chmod 644 gradle/wrapper/gradle-wrapper.jar; else echo "File not found"; fi
-
     - name: Build with Gradle
-      run: ./gradlew :app:assembleDebug --stacktrace --debug --scan
+      run: gradle :app:assembleDebug --stacktrace --debug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
