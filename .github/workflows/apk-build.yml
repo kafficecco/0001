@@ -16,5 +16,8 @@ jobs:
     - name: Set permissions for gradle-wrapper.jar
       run: if [ -f gradle/wrapper/gradle-wrapper.jar ]; then chmod 644 gradle/wrapper/gradle-wrapper.jar; fi
 
-    # Aquí irían el resto de tus pasos...
-    # Aquí irían el resto de tus pasos...
+    - name: Set permissions for gradlew
+      run: if [ -f gradlew ]; then chmod +x gradlew; fi
+
+    - name: Build with Gradle
+      run: ./gradlew build
