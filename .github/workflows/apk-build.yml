@@ -12,13 +12,13 @@ jobs:
         distribution: 'adopt'
     - name: Install Gradle
       run: |
-        wget https://services.gradle.org/distributions/gradle-6.9-bin.zip
-        unzip gradle-6.9-bin.zip
-        export PATH=$PATH:$PWD/gradle-6.9/bin
+        wget https://services.gradle.org/distributions/gradle-7.6-bin.zip
+        unzip gradle-7.6-bin.zip
+        export PATH=$PATH:$PWD/gradle-7.6/bin
     - name: Setup Gradle Wrapper
       run: |
         echo "org.gradle.jvmargs=-Xmx2g" > gradle.properties
-        gradle wrapper --gradle-version 6.9
+        gradle wrapper --gradle-version 7.6
         chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew assembleDebug
