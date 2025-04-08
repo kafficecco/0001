@@ -10,14 +10,15 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Setup Gradle
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+    - name: Accept Android SDK Licenses
+      run: yes | sdkmanager --licenses
+    - name: Build with Gradle
       uses: gradle/gradle-build-action@v2
       with:
-        gradle-version: 6.9
-    - name: Make Gradle Executable
-      run: chmod +x ./gradlew
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+        gradle-version: 6.7.1
+        arguments: assembleDebug
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
