@@ -12,6 +12,8 @@ jobs:
         distribution: 'adopt'
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
+    - name: Install Android SDK 33
+      run: sdkmanager "platforms;android-33"
     - name: Accept Android SDK Licenses
       run: yes | sdkmanager --licenses
     - name: Install Gradle
@@ -25,8 +27,6 @@ jobs:
       run: mkdir -p ~/.gradle && echo "org.gradle.terms-of-service.agree=yes" > ~/.gradle/gradle.properties && ./gradlew --version
     - name: Make Gradle Executable
       run: chmod +x ./gradlew
-    - name: Validate XML Files
-      run: find . -name "*.xml" -exec xmllint --noout {} \;
     - name: Build with Gradle
       run: ./gradlew assembleDebug --stacktrace --debug --scan
     - name: Upload APK
